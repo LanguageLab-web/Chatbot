@@ -1,6 +1,13 @@
 import json
 import time
 from datetime import datetime
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": " "}
 
 def load_logs():
     try:
@@ -162,4 +169,9 @@ def handle_user_input():
             print(f"\n{response_faisal_mss}")
 
 if __name__ == "__main__":
-    handle_user_input()
+    import sys
+    if "runserver" in sys.argv:
+        import uvicorn
+        uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
+    else:
+        handle_user_input()
